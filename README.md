@@ -1,2 +1,1 @@
-# npm-package
-npm package
+# 100xTyping
