@@ -4,13 +4,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "JetBrains Mono";
   src: url("public/fonts/JetBrainsMono-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
 }
+
 body {
+  cursor: none;
   color: #e0e0e0;
   background-color: #121212;
   font-family: "JetBrains Mono", monospace;
@@ -48,11 +51,13 @@ a {
   color: #00d8ff;
   text-decoration-style: dashed;
 }
+
 a:hover {
   color: #00d8ff;
   text-decoration: underline;
   cursor: pointer;
 }
+
 a:active {
   color: #121212;
   background-color: #00d8ff;
@@ -62,6 +67,7 @@ a:active {
   color: #00d8ff;
   text-decoration-style: dashed !important;
 }
+
 .pages-item:hover {
   color: #00d8ff;
   text-decoration: dashed !important;
@@ -78,6 +84,7 @@ a:active {
 ::-webkit-scrollbar-thumb {
   background: #2c2c2c;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #444;
 }
@@ -96,10 +103,12 @@ a:active {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
 }
+
 .term-grey,
 #term-grey {
   color: #a0a0a0;
@@ -208,7 +217,9 @@ a:active {
 #cursor {
   position: relative;
 }
+
 #cursor i {
+
   width: 10px;
   height: 80%;
   position: absolute;
@@ -221,7 +232,8 @@ a:active {
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
-#cursor input:focus + i {
+
+#cursor input:focus+i {
   display: none;
   outline: 0;
 }
