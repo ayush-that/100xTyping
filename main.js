@@ -1,3 +1,6 @@
+import { Analytics } from "@vercel/analytics";
+Analytics();
+
 var input = document.getElementById("terminal-input");
 var content = document.getElementById("terminal-content");
 
@@ -13,7 +16,6 @@ const helpCmds = [
   `<span id='faint-glow-purple' class='term-purple'>clear</span>    ${o}${o}${o}${o}${o}${o}${o}       🧹 Clears the terminal <br>`,
 ];
 const welcomeMsg = [
-  `<br>`,
   `Welcome to <span id="term-green" class="faint-glow-green">100xtyping</span> <br>`,
   `Type <span id="term-green" class="faint-glow-green">'help'</span> for the list of available commands.<br>`,
 ];
