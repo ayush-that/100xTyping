@@ -49,27 +49,27 @@ pre {
 a {
   color: #00d8ff;
   text-decoration-style: dashed;
+
+  &:hover {
+    color: #00d8ff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &:active {
+    color: #121212;
+    background-color: #00d8ff;
+  }
 }
 
-a:hover {
-  color: #00d8ff;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-a:active {
-  color: #121212;
-  background-color: #00d8ff;
-}
-
-pages-item {
+.pages-item {
   color: #00d8ff;
   text-decoration-style: dashed !important;
-}
 
-pages-item:hover {
-  color: #00d8ff;
-  text-decoration: dashed !important;
+  &:hover {
+    color: #00d8ff;
+    text-decoration: dashed !important;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -82,10 +82,10 @@ pages-item:hover {
 
 ::-webkit-scrollbar-thumb {
   background: #2c2c2c;
-}
 
-::-webkit-scrollbar-thumb:hover {
-  background: #444;
+  &:hover {
+    background: #444;
+  }
 }
 
 ::selection {
@@ -102,7 +102,6 @@ pages-item:hover {
   from {
     opacity: 1;
   }
-
   to {
     opacity: 0;
   }
@@ -177,13 +176,10 @@ pages-item:hover {
 #main-wrapper {
   display: inline-block;
   background-color: transparent;
-
   height: 500px;
   width: 70%;
-
-  padding-top: 0px;
+  padding-top: 0;
   padding-left: 25px;
-
   color: #e0e0e0;
   font-size: 14px;
 }
@@ -205,7 +201,7 @@ pages-item:hover {
 .terminal-input {
   background-color: transparent;
   align-self: flex-start;
-  border: 0px;
+  border: 0;
   appearance: none;
   outline-width: 0;
   margin-left: 10px;
@@ -213,33 +209,30 @@ pages-item:hover {
   font-size: 14px;
   color: #e0e0e0;
   outline: none;
-  outline-width: 0px;
+  outline-width: 0;
 }
 
 #cursor {
   position: relative;
-}
 
-#cursor i {
-  width: 10px;
-  height: 80%;
-  position: absolute;
-  left: 5px;
-  top: 10%;
+  i {
+    width: 10px;
+    height: 80%;
+    position: absolute;
+    left: 5px;
+    top: 10%;
+    margin-top: 0;
+    opacity: 1;
+    background-color: transparent;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
 
-  margin-top: 0;
-
-  opacity: 1;
-  background-color: transparent;
-
-  animation-name: blink;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-}
-
-#cursor input:focus + i {
-  display: none;
-  outline: 0;
+  input:focus + i {
+    display: none;
+    outline: 0;
+  }
 }
 
 #bottom {
