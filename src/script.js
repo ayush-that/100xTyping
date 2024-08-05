@@ -4,22 +4,21 @@ var content = document.getElementById("terminal-content");
 const o = "&nbsp;";
 const commandList = ["help", "welcome", "start", "reset", "stats", "clear"];
 const helpCmds = [
-  `<strong>------ Typing Test Commands ------</strong><br>`,
-  `<span id='faint-glow-purple' class='term-purple'>help</span>     ${o}${o}${o}${o}${o}${o}${o}${o}   Displays this message <br>`,
-  `<span id='faint-glow-purple' class='term-purple'>welcome</span>  ${o}${o}${o}${o}${o}               Displays the welcome message <br>`,
-  `<span id='faint-glow-purple' class='term-purple'>start</span>    ${o}${o}${o}${o}${o}${o}${o}       Start the typing test <br>`,
-  `<span id='faint-glow-purple' class='term-purple'>reset</span>    ${o}${o}${o}${o}${o}${o}${o}       Reset the typing test <br>`,
-  `<span id='faint-glow-purple' class='term-purple'>stats</span>    ${o}${o}${o}${o}${o}${o}${o}       View typing test statistics <br>`,
-  `<span id='faint-glow-purple' class='term-purple'>clear</span>    ${o}${o}${o}${o}${o}${o}${o}       Clears the terminal <br>`,
+  `<strong>------ ✨ Typing Test Commands ✨ ------</strong><br>`,
+  `<span id='faint-glow-purple' class='term-purple'>help</span>     ${o}${o}${o}${o}${o}${o}${o}${o}   📜 Displays this message <br>`,
+  `<span id='faint-glow-purple' class='term-purple'>welcome</span>  ${o}${o}${o}${o}${o}               🎉 Displays the welcome message <br>`,
+  `<span id='faint-glow-purple' class='term-purple'>start</span>    ${o}${o}${o}${o}${o}${o}${o}       🚀 Start the typing test <br>`,
+  `<span id='faint-glow-purple' class='term-purple'>reset</span>    ${o}${o}${o}${o}${o}${o}${o}       🔄 Reset the typing test <br>`,
+  `<span id='faint-glow-purple' class='term-purple'>stats</span>    ${o}${o}${o}${o}${o}${o}${o}       📊 View typing test statistics <br>`,
+  `<span id='faint-glow-purple' class='term-purple'>clear</span>    ${o}${o}${o}${o}${o}${o}${o}       🧹 Clears the terminal <br>`,
 ];
 const welcomeMsg = [
   `<br>`,
-  `Welcome to the Typing Test Terminal. (Version 1.0.0) <br>`,
-  `<br>`,
+  `Welcome to <span id="term-green" class="faint-glow-green">100xtyping</span> <br>`,
   `Type <span id="term-green" class="faint-glow-green">'help'</span> for the list of available commands.<br>`,
 ];
 const resetMsg = [
-  `The typing test has been reset. Type <span id="term-green" class="faint-glow-green">'start'</span> to begin again.`,
+  `🔄 The typing test has been reset. Type <span id="term-green" class="faint-glow-green">'start'</span> to begin again.`,
 ];
 let testStartTime, testEndTime;
 let isTesting = false;
@@ -122,7 +121,7 @@ input.addEventListener("keydown", HandleCommands);
 
 function ScrollTo(direction) {
   if (direction === "top") {
-    window.scrollTo(top, 0);
+    window.scrollTo(0, 0);
   }
   if (direction === "bottom") {
     window.scrollTo(0, document.body.scrollHeight);
@@ -150,7 +149,7 @@ function ExecuteWelcomeCommandOnLoad() {
 
   ScrollTo("top");
   document.getElementById("terminal-welcome-loading-text").innerText =
-    "welcome";
+    "👋 Welcome";
   document.getElementById("terminal").removeAttribute("class");
   input.removeAttribute("disabled");
   input.focus();
@@ -179,14 +178,14 @@ function ExecuteCommand(command) {
         testText = getRandomParagraph();
         testStartTime = new Date().getTime();
         const startMsg = [
-          `Starting the typing test...<br>`,
+          `🚀 Starting the typing test...<br>`,
           `Type the following text as fast as you can:<br>`,
           `<span id="test-text">${testText}</span><br>`,
           `Press Enter when you are done.`,
         ];
         terminal.echo(startMsg, 25, false, true);
       } else {
-        terminal.echo(["Typing test already in progress."], 25, false, true);
+        terminal.echo(["✏️ Typing test already in progress."], 25, false, true);
       }
       break;
     case "reset":
@@ -211,7 +210,7 @@ function ExecuteCommand(command) {
         .join("<br>");
 
       const statsMsg = [
-        `Typing Test Statistics:<br>`,
+        `📊 Typing Test Statistics:<br>`,
         `Attempts: ${typingTestResults.length}<br>`,
         `Average Words per minute (WPM): <span id="wpm">${averageWpm.toFixed(
           2
@@ -234,7 +233,7 @@ function ExecuteCommand(command) {
           typingTestResults.push({ wpm, accuracy });
           terminal.echo(
             [
-              `Typing test completed. WPM: ${wpm.toFixed(
+              `✅ Typing test completed. WPM: ${wpm.toFixed(
                 2
               )}, Accuracy: ${accuracy.toFixed(2)}%`,
             ],
@@ -246,7 +245,7 @@ function ExecuteCommand(command) {
           testText = ""; // Clear the test text
         } else {
           terminal.echo(
-            [`Incorrect text. Accuracy: ${accuracy.toFixed(2)}%`],
+            [`❌ Incorrect text. Accuracy: ${accuracy.toFixed(2)}%`],
             25,
             false,
             true
@@ -254,7 +253,7 @@ function ExecuteCommand(command) {
           // Allow user to correct their text and try again without resetting the flag
         }
       } else {
-        terminal.echo([`Unknown command: ${command}`], 25, false, true);
+        terminal.echo([`❓ Unknown command: ${command}`], 25, false, true);
       }
       break;
   }

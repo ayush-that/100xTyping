@@ -29,7 +29,7 @@ body {
 h1 {
     margin: 0;
     font-size: 45px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'JetBrains Mono', monospace;
     color: #c0c0c0;
 }
 
@@ -167,7 +167,7 @@ pages-item:hover {
 
 .quote {
     font-size: 25px;
-    font-family: cursive;
+    font-family: 'JetBrains Mono', monospace;
     font-style: italic;
     color: #e0e0e0;
 }
@@ -187,7 +187,7 @@ pages-item:hover {
     padding-left: 25px;
 
     color: #e0e0e0;
-    font-size: 17px;
+    font-size: 14px;
 }
 
 #terminal {
@@ -206,6 +206,8 @@ pages-item:hover {
 #terminal-input,
 .terminal-input {
     background-color: transparent;
+    align-self: flex-end;
+    /* Aligns input to the bottom */
 
     border: 0px;
     appearance: none;
@@ -213,7 +215,7 @@ pages-item:hover {
 
     margin-left: 10px;
 
-    font-family: monospace;
+    font-family: 'JetBrains Mono', monospace;
     font-size: 17px;
     color: #e0e0e0;
 }
