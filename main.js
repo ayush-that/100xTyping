@@ -24,27 +24,29 @@ let isTesting = false;
 let testText = "";
 let typingTestResults = [];
 
-const typingTestParagraphs = [
-  "the quick brown fox jumps over the lazy dog every day",
-  "she sells seashells by the seashore near the sandy beach",
-  "how much wood would a woodchuck chuck if it could",
-  "a journey of a thousand miles begins with a single step",
-  "to be or not to be that is the question always",
-  "every good boy deserves fudge and every girl likes candy",
-  "a rolling stone gathers no moss and stays always moving fast",
-  "an apple a day keeps the doctor away from the sick",
-  "the early bird catches the worm and gets the best start",
-  "if you can't beat them join them and make it right",
-];
+async function fetchWords() {
+  const response = await fetch("words.json");
+  const words = await response.json();
+  return words;
+}
 
-function getRandomParagraph() {
-  const randomIndex = Math.floor(Math.random() * typingTestParagraphs.length);
-  return typingTestParagraphs[randomIndex];
+async function getRandomWords() {
+  const words = await fetchWords();
+  const wordKeys = Object.keys(words);
+  let randomWords = [];
+  while (randomWords.length < 10) {
+    const randomIndex = Math.floor(Math.random() * wordKeys.length);
+    const randomWord = words[wordKeys[randomIndex]];
+    if (!randomWords.includes(randomWord)) {
+      randomWords.push(randomWord);
+    }
+  }
+  return randomWords.join(" ");
 }
 
 function calculateAccuracy(expectedText, typedText) {
   let correctChars = 0;
-  let totalChars = expectedText.length;
+  let totalChars = Math.max(expectedText.length, typedText.length);
 
   for (let i = 0; i < totalChars; i++) {
     if (typedText[i] === expectedText[i]) {
@@ -154,105 +156,135 @@ function ExecuteWelcomeCommandOnLoad() {
   input.focus();
 }
 
-function HandleCommands(event) {
+async function HandleCommands(event) {
   if (event.key === "Enter") {
     const command = input.value.trim();
     input.value = "";
-    content.innerHTML += `<br><span id="term-orange">visitor</span>@<span id="term-green">100xtyping.ayush.top</span>:~$ ${command} <br>`;
-    ExecuteCommand(command);
+    content.innerHTML += `<br><span id="term-orange">100xDev</span>@<span id="term-green">100xtyping.ayush.top</span>:~$ ${command} <br>`;
+    await ExecuteCommand(command);
   }
 }
 
-function ExecuteCommand(command) {
-  switch (command) {
-    case "help":
-      terminal.echo(helpCmds, 10, false, true);
-      break;
-    case "welcome":
-      terminal.echo(welcomeMsg, 25, false, true);
-      break;
-    case "start":
-      if (!isTesting) {
-        isTesting = true;
-        testText = getRandomParagraph();
-        testStartTime = new Date().getTime();
-        const startMsg = [
-          `🚀 Starting the typing test...<br>`,
-          `Type the following text as fast as you can:<br>`,
-          `<span id="test-text">${testText}</span><br>`,
-          `Press Enter when you are done.`,
-        ];
-        terminal.echo(startMsg, 25, false, true);
-      } else {
-        terminal.echo(["✏️ Typing test already in progress."], 25, false, true);
-      }
-      break;
-    case "reset":
+async function ExecuteCommand(command) {
+  if (
+    isTesting &&
+    command !== "reset" &&
+    command !== "help" &&
+    command !== "clear" &&
+    command !== "stats"
+  ) {
+    const typedText = command.trim();
+    const accuracy = calculateAccuracy(testText, typedText);
+    if (accuracy === 100) {
+      testEndTime = new Date().getTime();
+      let timeDiff = (testEndTime - testStartTime) / 1000; // in seconds
+      let wpm = (testText.split(" ").length / timeDiff) * 60;
+      typingTestResults.push({ wpm, accuracy });
+      terminal.echo(
+        [
+          `✅ Typing test completed. WPM: ${wpm.toFixed(
+            2
+          )}, Accuracy: ${accuracy.toFixed(2)}%<br>`,
+          `Do you want to continue? Press <span id="term-green">'y'</span> for another test or <span id="term-red">'n'</span> to stop.`,
+        ],
+        25,
+        false,
+        true
+      );
       isTesting = false;
       testText = "";
-      terminal.echo(resetMsg, 25, false, true);
-      break;
-    case "stats":
-      let totalWpm = 0;
-      typingTestResults.forEach((result) => {
-        totalWpm += result.wpm;
-      });
-      let averageWpm =
-        typingTestResults.length > 0 ? totalWpm / typingTestResults.length : 0;
-
-      // Display all attempts
-      const attemptsList = typingTestResults
-        .map(
-          (result, index) =>
-            `Attempt ${index + 1}: WPM: ${result.wpm.toFixed(2)}`
-        )
-        .join("<br>");
-
-      const statsMsg = [
-        `📊 Typing Test Statistics:<br>`,
-        `Attempts: ${typingTestResults.length}<br>`,
-        `Average Words per minute (WPM): <span id="wpm">${averageWpm.toFixed(
-          2
-        )}</span><br>`,
-        `All Attempts:<br>${attemptsList}`,
-      ];
-      terminal.echo(statsMsg, 25, false, true);
-      break;
-    case "clear":
-      content.innerHTML = "";
-      break;
-    default:
-      if (isTesting) {
-        const typedText = command.trim();
-        const accuracy = calculateAccuracy(testText, typedText);
-        if (accuracy === 100) {
-          testEndTime = new Date().getTime();
-          let timeDiff = (testEndTime - testStartTime) / 1000; // in seconds
-          let wpm = (testText.split(" ").length / timeDiff) * 60;
-          typingTestResults.push({ wpm, accuracy });
-          terminal.echo(
-            [
-              `✅ Typing test completed. WPM: ${wpm.toFixed(
-                2
-              )}, Accuracy: ${accuracy.toFixed(2)}%`,
-            ],
-            25,
-            false,
-            true
-          );
-          isTesting = false;
-          testText = "";
+    } else {
+      terminal.echo(
+        [
+          `❌ Incorrect text. Accuracy: ${accuracy.toFixed(
+            2
+          )}%<br>Resetting test...`,
+        ],
+        25,
+        false,
+        true
+      );
+      setTimeout(() => {
+        ExecuteCommand("reset");
+      }, 1000);
+    }
+  } else {
+    switch (command) {
+      case "help":
+        terminal.echo(helpCmds, 10, false, true);
+        break;
+      case "welcome":
+        terminal.echo(welcomeMsg, 25, false, true);
+        break;
+      case "start":
+        if (!isTesting) {
+          isTesting = true;
+          testText = await getRandomWords();
+          testStartTime = new Date().getTime();
+          const startMsg = [
+            `🚀 Starting the typing test...<br>`,
+            `Type the following text as fast as you can:<br>`,
+            `<span id="test-text">${testText}</span><br>`,
+            `Press Enter when you are done.`,
+          ];
+          terminal.echo(startMsg, 25, false, true);
         } else {
           terminal.echo(
-            [`❌ Incorrect text. Accuracy: ${accuracy.toFixed(2)}%`],
+            ["✏️ Typing test already in progress."],
             25,
             false,
             true
           );
         }
-      } else {
-        terminal.echo([`❓ Unknown command: ${command}`], 25, false, true);
-      }
-      break;
+        break;
+      case "reset":
+        isTesting = false;
+        testText = "";
+        terminal.echo(resetMsg, 25, false, true);
+        break;
+      case "stats":
+        let totalWpm = 0;
+        typingTestResults.forEach((result) => {
+          totalWpm += result.wpm;
+        });
+        let averageWpm =
+          typingTestResults.length > 0
+            ? totalWpm / typingTestResults.length
+            : 0;
+
+        const attemptsList = typingTestResults
+          .map(
+            (result, index) =>
+              `Attempt ${index + 1}: WPM: ${result.wpm.toFixed(2)}`
+          )
+          .join("<br>");
+
+        const statsMsg = [
+          `📊 Typing Test Statistics:<br>`,
+          `Attempts: ${typingTestResults.length}<br>`,
+          `Average Words per minute (WPM): <span id="wpm">${averageWpm.toFixed(
+            2
+          )}</span><br>`,
+          `All Attempts:<br>${attemptsList}`,
+        ];
+        terminal.echo(statsMsg, 25, false, true);
+        break;
+      case "clear":
+        content.innerHTML = "";
+        break;
+      case "y":
+        if (!isTesting) {
+          ExecuteCommand("start");
+        }
+        break;
+      case "n":
+        terminal.echo(["👍 Test session ended."], 25, false, true);
+        break;
+      default:
+        if (!isTesting) {
+          terminal.echo([`❓ Unknown command: ${command}`], 25, false, true);
+        }
+        break;
+    }
   }
 }
