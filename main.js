@@ -159,7 +159,7 @@ function HandleCommands(event) {
   if (event.key === "Enter") {
     const command = input.value.trim();
     input.value = "";
-    content.innerHTML += `<br><span id="term-orange">visitor</span>@<span id="term-green">typingtest.web.app</span>:~$ ${command} <br>`;
+    content.innerHTML += `<br><span id="term-orange">visitor</span>@<span id="term-green">100xtyping.ayush.top</span>:~$ ${command} <br>`;
     ExecuteCommand(command);
   }
 }

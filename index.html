@@ -2,34 +2,34 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>100xtyping</title>
-    <link href="/src/assets/favicon.ico" rel="icon" type="image/x-icon" />
-    <link rel="stylesheet" href="src/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>100xtyping</title>
+  <link href="/public/favicon.ico" rel="icon" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body onload="ExecuteWelcomeCommandOnLoad()" onloadstart="">
-    <div id="main-wrapper">
-        <br />
+  <div id="main-wrapper">
+    <br />
 
-        <div id="terminal-content">
-            <span id="term-orange">100xDev</span>@<span id="term-green">100xtyping.ayush.top</span><span
-                id="welcome-onload-input">:~$</span>
-            <span id="terminal-welcome-loading-text">Waiting for page to load...</span><br /><br />
-        </div>
-
-        <div id="terminal" class="invisible">
-            <p id="path">
-                <span id="term-orange">100xDev</span>@<span id="term-green">100xtyping.ayush.top</span>:~$
-            </p>
-            <div id="cursor">
-                <input id="terminal-input" type="text" size="75" maxlength="75" autocomplete="off" spellcheck="false"
-                    autofocus onblur="FocusInput()" disabled \ />
-            </div>
-        </div>
+    <div id="terminal-content">
+      <span id="term-orange">100xDev</span>@<span id="term-green">100xtyping.ayush.top</span><span
+        id="welcome-onload-input">:~$</span>
+      <span id="terminal-welcome-loading-text">Waiting for page to load...</span><br /><br />
     </div>
-    <script src="src/script.js"></script>
+
+    <div id="terminal" class="invisible">
+      <p id="path">
+        <span id="term-orange">100xDev</span>@<span id="term-green">100xtyping.ayush.top</span>:~$
+      </p>
+      <div id="cursor">
+        <input id="terminal-input" type="text" size="75" maxlength="75" autocomplete="off" spellcheck="false" autofocus
+          onblur="FocusInput()" disabled \ />
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
 </body>
 
 </html>
