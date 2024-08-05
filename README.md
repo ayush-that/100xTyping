@@ -12,7 +12,7 @@
   ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
 </p>
 
-https://github.com/user-attachments/assets/7d304da0-e33c-4c59-8733-0acb486d7bd3
+https://github.com/user-attachments/assets/5ea08616-92a3-4a64-86f1-b894925b08a6
 
 ### Running Locally
 
