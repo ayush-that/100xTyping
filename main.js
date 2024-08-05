@@ -1,5 +1,4 @@
 import { Analytics } from "@vercel/analytics";
-Analytics();
 
 var input = document.getElementById("terminal-input");
 var content = document.getElementById("terminal-content");
@@ -260,3 +259,5 @@ function ExecuteCommand(command) {
       break;
   }
 }
+
+Analytics();
