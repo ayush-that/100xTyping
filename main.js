@@ -1,5 +1,3 @@
-import { Analytics } from "@vercel/analytics";
-
 var input = document.getElementById("terminal-input");
 var content = document.getElementById("terminal-content");
 
@@ -242,8 +240,8 @@ function ExecuteCommand(command) {
             false,
             true
           );
-          isTesting = false; // Reset the flag after successful completion
-          testText = ""; // Clear the test text
+          isTesting = false;
+          testText = "";
         } else {
           terminal.echo(
             [`❌ Incorrect text. Accuracy: ${accuracy.toFixed(2)}%`],
@@ -251,7 +249,6 @@ function ExecuteCommand(command) {
             false,
             true
           );
-          // Allow user to correct their text and try again without resetting the flag
         }
       } else {
         terminal.echo([`❓ Unknown command: ${command}`], 25, false, true);
@@ -259,5 +256,3 @@ function ExecuteCommand(command) {
       break;
   }
 }
-
-Analytics();

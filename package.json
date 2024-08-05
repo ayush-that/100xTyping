@@ -11,8 +11,5 @@
   "devDependencies": {
     "purgecss": "^6.0.0",
     "vite": "^5.3.4"
-  },
-  "dependencies": {
-    "@vercel/analytics": "^1.3.1"
   }
 }
