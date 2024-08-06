@@ -1,0 +1,19 @@
+{
+  "name": "100xtyping",
+  "version": "1.0.1",
+  "description": "A CLI typing test",
+  "main": "src/index.mjs",
+  "bin": {
+    "100xtyping": "src/index.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node src/index.mjs"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "chalk-animation": "^5.0.0",
+    "figlet": "^1.5.0",
+    "gradient-string": "^2.0.0"
+  }
+}

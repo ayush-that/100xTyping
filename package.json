@@ -1,6 +1,6 @@
 {
   "name": "100xtyping",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,5 +11,7 @@
   "devDependencies": {
     "purgecss": "^6.0.0",
     "vite": "^5.3.4"
-  }
-}
+  },
+  "dependencies": {
+    "100xtyping": "^1.0.1"
+  }}
