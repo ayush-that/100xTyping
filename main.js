@@ -44,17 +44,43 @@ async function getRandomWords() {
   return randomWords.join(" ");
 }
 
-function calculateAccuracy(expectedText, typedText) {
-  let correctChars = 0;
-  let totalChars = Math.max(expectedText.length, typedText.length);
+function longestCommonSubsequenceLength(expectedText, typedText) {
+  const memo = new Array(expectedText.length + 1).fill(null).map(() => new Array(typedText.length + 1).fill(-1));
 
-  for (let i = 0; i < totalChars; i++) {
-    if (typedText[i] === expectedText[i]) {
-      correctChars++;
-    }
+  function lcsHelper(i, j) {
+      if (i === 0 || j === 0) return 0;
+
+      if (memo[i][j] !== -1) return memo[i][j];
+
+      if (expectedText[i - 1] === typedText[j - 1])
+          memo[i][j] = 1 + lcsHelper(i - 1, j - 1);
+      else
+          memo[i][j] = Math.max(lcsHelper(i - 1, j), lcsHelper(i, j - 1));
+
+      return memo[i][j];
   }
 
-  return (correctChars / totalChars) * 100;
+  lcsHelper(expectedText.length, typedText.length);
+
+  let i = expectedText.length, j = typedText.length;
+  let longestCommonSubsequence = "";
+
+  while (i > 0 && j > 0) {
+      if (expectedText[i - 1] === typedText[j - 1]) {
+          longestCommonSubsequence = expectedText[i - 1] + longestCommonSubsequence;
+          i--;
+          j--;
+      } else if (memo[i - 1][j] > memo[i][j - 1])
+          i--;
+      else
+          j--;
+  }
+
+  return longestCommonSubsequence.length;
+}
+
+function calculateAccuracy(expectedText, typedText) {
+  return (longestCommonSubsequenceLength(expectedText, typedText) / expectedText.length) * 100;
 }
 
 const terminal = {
